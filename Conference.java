@@ -13,7 +13,7 @@ public class Conference {
 				//if there still exists !filled table arrays
 					//if the table arrays only have one person per company
 	n = 
-	String[] attendees = new String[1.5n];
+	Conference[] attendees = new Conference[1.5n];
 	
 	public void PreRegistration() throws IOException {
 		File companyFile = new File("companies.txt");
@@ -35,11 +35,18 @@ public class Conference {
 		int i = 0;
 		while (scan.hasNext() && i < 100) {
 			String line = scan.NextLine();
-			companiesPresent[i] = line;
+			String[] guestData = line.split(",");
+			String firstNames = guestData[1];
+			String lastNames = guestData[2];
+			int companyNumber = Integer.parseInt(guestData[3]);
+			Conference c = new Conference(firstNames, lastNames, companyNumber);
+			companiesPresent[i] = c;
 			i++;
 		}
 		scan.close();
 	}
+	
+	
 	
 	
 
