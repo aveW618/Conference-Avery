@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.*;
+
 public class NewGuestNames {
 	public static void main(String[] args) {
 		//getting user inputted guest name for people who register at the conference
@@ -6,5 +9,6 @@ public class NewGuestNames {
 		
 		//stores the user inputted guest name
 		String guestName = getGuestName.nextline();
+		
 	}
 }

@@ -1,5 +1,6 @@
-import java.io.companies.txt;
-import java.io.confGuests.txt;
+import java.io.*;
+import java.util.*;
+
 public class Conference {
 	//load in external files
 	//check if there are no more than 10 people from each company
@@ -15,12 +16,15 @@ public class Conference {
 	
 	public String preRegistration() throws IOException {
 		File companyFile = new File("companies.txt");
-		Scanner scan = new Scanner(companyFile);
+		Scanner guestScan = new Scanner(companyFile);
 		String[] companiesPresent = new String[16];
 		
 		int i = 0;
-		while (scan.hasNext() && i < 16) {
-			String line = scan.NextLine();
+		if (scan.hasNextLine()) {
+			scan.nextLine();
+		}
+		while (scan.hasNextLine() && i < 16) {
+			String line = scan.nextLine();
 			companiesPresent[i] = line;
 			i++;
 			Conference[] preRegisteredCompanies = new Conference[i];
@@ -28,13 +32,13 @@ public class Conference {
 		scan.close();
 		
 		File guestsFile = new File("confGuests.txt");
-		Scanner scan = new Scanner(guestsFile);
+		Scanner guestScan = new Scanner(guestsFile);
 		String[] guestsPresent = new String[i];
 		int n = guestsPresent.length;
-		Conference[] attendees = new Conference[(1.5 * n)];
+		Conference[] attendees = new Conference[(1.5 * Double.parseDouble(n))];
 		
-		while (scan.hasNext() && i < 100) {
-			String line = scan.NextLine();
+		while (scan.hasNextLine() && i < 100) {
+			String line = scan.nextLine();
 			String[] guestData = line.split(",");
 			String firstNames = guestData[1];
 			String lastNames = guestData[2];
