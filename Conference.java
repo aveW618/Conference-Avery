@@ -1,5 +1,5 @@
-import.java.io.companies;
-import.java.io.confGuests;
+import java.io.companies.txt;
+import java.io.confGuests.txt;
 public class Conference {
 	//load in external files
 	//check if there are no more than 10 people from each company
@@ -12,10 +12,8 @@ public class Conference {
 			//repeat the seating function above if the total number of guests is < than 100
 				//if there still exists !filled table arrays
 					//if the table arrays only have one person per company
-	n = 
-	Conference[] attendees = new Conference[1.5n];
 	
-	public void PreRegistration() throws IOException {
+	public String preRegistration() throws IOException {
 		File companyFile = new File("companies.txt");
 		Scanner scan = new Scanner(companyFile);
 		String[] companiesPresent = new String[16];
@@ -25,14 +23,16 @@ public class Conference {
 			String line = scan.NextLine();
 			companiesPresent[i] = line;
 			i++;
+			Conference[] preRegisteredCompanies = new Conference[i];
 		}
 		scan.close();
 		
 		File guestsFile = new File("confGuests.txt");
 		Scanner scan = new Scanner(guestsFile);
-		String[] guestsPresent = new String[100];
+		String[] guestsPresent = new String[i];
+		int n = guestsPresent.length;
+		Conference[] attendees = new Conference[(1.5 * n)];
 		
-		int i = 0;
 		while (scan.hasNext() && i < 100) {
 			String line = scan.NextLine();
 			String[] guestData = line.split(",");
@@ -45,6 +45,8 @@ public class Conference {
 		}
 		scan.close();
 	}
+}
+
 	
 	
 	
