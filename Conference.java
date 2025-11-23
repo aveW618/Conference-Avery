@@ -1,8 +1,11 @@
+//Avery Wang
+//Conference Project
+
+//load in external files
 import java.io.*;
 import java.util.*;
 
 public class Conference {
-	//load in external files
 	//check if there are no more than 10 people from each company
 	//check if there are no more than 100 people in attendance total
 	//for loop to iterate through all of the guests and find those guests of company 1 and then split them into a separate array
@@ -14,19 +17,43 @@ public class Conference {
 				//if there still exists !filled table arrays
 					//if the table arrays only have one person per company
 	
-	public String preRegistration() throws IOException {
-		File companyFile = new File("companies.txt");
-		Scanner guestScan = new Scanner(companyFile);
-		String[] companiesPresent = new String[16];
-		
+	//declaring variables
+	int tables;
+	int seatsPerTable;
+	int attendees;
+	int companies;
+	int attendeesPerCompany;
+	
+	//delclaring an array to hold all attendees
+	Attendee[] items = new Attendee[1.5n];
+	String filename = "confGuests.txt";
+	
+	//method to read in the guest data
+		//use throws IOException because the method may throw an exception that needs to be accounted for
+	public void readFile() throws IOException {
+		//reads in the confGuests file
+		File companyFile = new File(filename);
+		Scanner scan = new Scanner(companyFile);
 		int i = 0;
-		if (scan.hasNextLine()) {
+		//makes sure that there exists a next line
+		if(scan.hasNextLine()) {
 			scan.nextLine();
 		}
-		while (scan.hasNextLine() && i < 16) {
+		//loop while there is a next line to create arrays for each attendee
+		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
-			companiesPresent[i] = line;
+			//saves the substrings that have been split along the commas from the file into the array guestData
+			String[] guestData = line.split(",");
+			
+			String firstName = guestData[1];
+			String lastName = guestData[2];
+			int companyNumber = Integer.parseInt(guestData[3]);
+			
+			Attendee a = new Attendee(firstName, lastName, companyNumber);
+			items[i] = a;
 			i++;
+			
+			
 			Conference[] preRegisteredCompanies = new Conference[i];
 		}
 		scan.close();
@@ -38,17 +65,21 @@ public class Conference {
 		Conference[] attendees = new Conference[(1.5 * Double.parseDouble(n))];
 		
 		while (scan.hasNextLine() && i < 100) {
-			String line = scan.nextLine();
-			String[] guestData = line.split(",");
-			String firstNames = guestData[1];
-			String lastNames = guestData[2];
-			int companyNumber = Integer.parseInt(guestData[3]);
 			Conference c = new Conference(firstNames, lastNames, companyNumber);
 			companiesPresent[i] = c;
 			i++;
 		}
 		scan.close();
 	}
+	
+	for (int i = 0; i < 100; i++) {
+		Conference[] companyNumber = new Conference[16];
+	
+	public void company1() {
+		Conference[] company1Members = companyNumbers[0];
+		
+	
+	
 }
 
 	
