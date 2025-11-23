@@ -18,27 +18,38 @@ public class Conference {
 					//if the table arrays only have one person per company
 	
 	//declaring variables
-	int tables;
-	int seatsPerTable;
-	int attendees;
-	int companies;
+	int maxTables = 10;
+	int seatsPerTable = 10;
+	int maxAttendees = 100;
+	int maxCompanies = 16;
 	int attendeesPerCompany;
 	
 	//delclaring an array to hold all attendees
-	Attendee[] items = new Attendee[1.5n];
+	Attendee[] items;
 	String filename = "confGuests.txt";
+	int numLines = 0;
 	
 	//method to read in the guest data
 		//use throws IOException because the method may throw an exception that needs to be accounted for
 	public void readFile() throws IOException {
-		//reads in the confGuests file
-		File companyFile = new File(filename);
-		Scanner scan = new Scanner(companyFile);
-		int i = 0;
-		//makes sure that there exists a next line
-		if(scan.hasNextLine()) {
-			scan.nextLine();
+		//reads in the confGuests file bto determine how many lines there are 
+			//to help with how big the guest array should be
+		File guestFile = new File(filename);
+		Scanner numLinesscan = new Scanner(guestFile);
+		int numLines = 0;
+		
+		//counts the number of lines in the file to help determine array size
+		while (numLinesscan.hasnextLine()) {
+			numLinesscan.nextLine();
+			numLines++;
 		}
+		numLinesscan.close();
+		
+		//arithmetic to help create an array with a 1.5 growth factor for in-person registrations
+		int arraySize = (int)(lineCount * 1.5);
+		//creates the array
+		items = new Attendee[arraySize];
+		
 		//loop while there is a next line to create arrays for each attendee
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
@@ -52,11 +63,9 @@ public class Conference {
 			Attendee a = new Attendee(firstName, lastName, companyNumber);
 			items[i] = a;
 			i++;
-			
-			
-			Conference[] preRegisteredCompanies = new Conference[i];
 		}
 		scan.close();
+	}
 		
 		File guestsFile = new File("confGuests.txt");
 		Scanner guestScan = new Scanner(guestsFile);
