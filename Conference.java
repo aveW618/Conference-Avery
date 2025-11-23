@@ -86,16 +86,26 @@ public class Conference {
 	
 	//method to manually register new attendees
 		//asks user for info and adds it to the guest array
-
-	
-	for (int i = 0; i < 100; i++) {
-		Conference[] companyNumber = new Conference[16];
-	
-	public void company1() {
-		Conference[] company1Members = companyNumbers[0];
+	public void manualRegistration() {
+		//Scanner method to obtain user input
+		Scanner getGuestName = new Scanner(System.in);
+		//prints out instructions and stores user input
+		System.out.println("Register New Attendee");
 		
-	
-	
+		System.out.print("First Name: ");
+		String firstName = scan.nextLine()
+		
+		System.out.print("Last name: ");
+		
+		System.out.print("Company number (1-16): ");
+		int companyNumber = Integer.parseInt(scan.nextLine());
+		
+		//create a new Attendee object and add it to the guest array
+		Attendee a = new Attendee(firstName, lastName, companyNumber);
+		items[i] = a;
+		i++;
+	}
+
 }
 
 	
