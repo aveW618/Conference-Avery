@@ -24,22 +24,29 @@ public class Conference {
 	int companies;
 	int attendeesPerCompany;
 	int attendeeCounter;
-	//declaring instance variables
+	
+	//declaring variables for attendee information
 	String firstName;
 	String lastName;
 	int companyNumber;
-	int tableNumber;
-	int seatNumber;
 	
 	//a constructor to create an Attendee object
-	public Attendee(string f, String l, int c) {
+	public Conference(String f, String l, int c) {
 		firstName = f;
 		lastName = l;
 		companyNumber = c;
 	}
 	
 	//getters for the atrributes
-	public String
+	public String getFirstName() {
+		return firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public int getCompanyNumber() {
+		return companyNumber;
+	}
 	
 	//delclaring an array to hold all attendees
 	Attendee[] items;
@@ -55,19 +62,19 @@ public class Conference {
 		int numLines = 0;
 		
 		//skips over a header line if it exists
-		if (scan.hasNextLine()) {
-			scan.nextLine();
+		if (numLinesscan.hasNextLine()) {
+			numLinesscan.nextLine();
 		}
 		
 		//counts the number of lines in the file to help determine array size
-		while (numLinesscan.hasnextLine()) {
+		while (numLinesscan.hasNextLine()) {
 			numLinesscan.nextLine();
 			numLines++;
 		}
 		numLinesscan.close();
 		
 		//arithmetic to help create an array with a 1.5 growth factor for in-person registrations
-		int arraySize = (int)(lineCount * 1.5);
+		int arraySize = (int)(numLines * 1.5);
 		//creates the array
 		items = new Attendee[arraySize];
 		
@@ -77,7 +84,7 @@ public class Conference {
 		
 		//skips header line if it exists
 		if (scan.hasNextLine()) {
-			scan.netLine();
+			scan.nextLine();
 		}
 		
 		//read each line of the guest file to create a 1D array of Attendee objects
