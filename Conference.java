@@ -38,6 +38,11 @@ public class Conference {
 		Scanner numLinesscan = new Scanner(guestFile);
 		int numLines = 0;
 		
+		//skips over a header line if it exists
+		if (scan.hasNextLine()) {
+			scan.nextLine();
+		}
+		
 		//counts the number of lines in the file to help determine array size
 		while (numLinesscan.hasnextLine()) {
 			numLinesscan.nextLine();
@@ -50,36 +55,38 @@ public class Conference {
 		//creates the array
 		items = new Attendee[arraySize];
 		
-		//loop while there is a next line to create arrays for each attendee
+		//actually scan the guest data to create Attendee objects
+		Scanner scan = new Scanner(guestFile);
+		int i = 0;
+		
+		//skips header line if it exists
+		if (scan.hasNextLine()) {
+			scan.netLine();
+		}
+		
+		//read each line of the guest file to create a 1D array of Attendee objects
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
-			//saves the substrings that have been split along the commas from the file into the array guestData
+			
+			//splits the lines by commas 
 			String[] guestData = line.split(",");
 			
+			//stores the data from the split array
 			String firstName = guestData[1];
 			String lastName = guestData[2];
 			int companyNumber = Integer.parseInt(guestData[3]);
 			
+			//create a new Attendee object and add it to the array for guests
 			Attendee a = new Attendee(firstName, lastName, companyNumber);
 			items[i] = a;
 			i++;
 		}
 		scan.close();
 	}
-		
-		File guestsFile = new File("confGuests.txt");
-		Scanner guestScan = new Scanner(guestsFile);
-		String[] guestsPresent = new String[i];
-		int n = guestsPresent.length;
-		Conference[] attendees = new Conference[(1.5 * Double.parseDouble(n))];
-		
-		while (scan.hasNextLine() && i < 100) {
-			Conference c = new Conference(firstNames, lastNames, companyNumber);
-			companiesPresent[i] = c;
-			i++;
-		}
-		scan.close();
-	}
+	
+	//method to manually register new attendees
+		//asks user for info and adds it to the guest array
+
 	
 	for (int i = 0; i < 100; i++) {
 		Conference[] companyNumber = new Conference[16];
