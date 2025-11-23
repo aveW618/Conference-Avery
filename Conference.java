@@ -18,16 +18,32 @@ public class Conference {
 					//if the table arrays only have one person per company
 	
 	//declaring variables
-	int maxTables = 10;
-	int seatsPerTable = 10;
-	int maxAttendees = 100;
-	int maxCompanies = 16;
+	int tables;
+	int seatsPerTable;
+	int attendees;
+	int companies;
 	int attendeesPerCompany;
+	int attendeeCounter;
+	//declaring instance variables
+	String firstName;
+	String lastName;
+	int companyNumber;
+	int tableNumber;
+	int seatNumber;
+	
+	//a constructor to create an Attendee object
+	public Attendee(string f, String l, int c) {
+		firstName = f;
+		lastName = l;
+		companyNumber = c;
+	}
+	
+	//getters for the atrributes
+	public String
 	
 	//delclaring an array to hold all attendees
 	Attendee[] items;
 	String filename = "confGuests.txt";
-	int numLines = 0;
 	
 	//method to read in the guest data
 		//use throws IOException because the method may throw an exception that needs to be accounted for
@@ -81,6 +97,7 @@ public class Conference {
 			items[i] = a;
 			i++;
 		}
+		attendeeCounter = i;
 		scan.close();
 	}
 	
@@ -88,24 +105,24 @@ public class Conference {
 		//asks user for info and adds it to the guest array
 	public void manualRegistration() {
 		//Scanner method to obtain user input
-		Scanner getGuestName = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		//prints out instructions and stores user input
 		System.out.println("Register New Attendee");
 		
 		System.out.print("First Name: ");
-		String firstName = scan.nextLine()
+		String firstName = scan.nextLine();
 		
 		System.out.print("Last name: ");
+		String lastName = scan.nextLine();
 		
 		System.out.print("Company number (1-16): ");
 		int companyNumber = Integer.parseInt(scan.nextLine());
 		
 		//create a new Attendee object and add it to the guest array
 		Attendee a = new Attendee(firstName, lastName, companyNumber);
-		items[i] = a;
-		i++;
+		items[attendeeCounter] = a;
+		attendeeCounter++;
 	}
-
 }
 
 	
