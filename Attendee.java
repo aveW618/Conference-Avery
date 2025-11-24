@@ -11,7 +11,7 @@ public class Attendee {
 	/* Constructor to create an Attendee object
 	 * takes user ID, first name, last name, company number, and user ID
 	 */
-	public Conference(int id, String f, String l, int c) {
+	public Attendee(int id, String f, String l, int c) {
 		userID = id;
 		firstName = f;
 		lastName = l;
