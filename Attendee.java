@@ -36,6 +36,10 @@ public class Attendee {
 	public int getCompanyNumber() {
 		return companyNumber;
 	}
+	
+	public void toString() {
+		System.out.println("Attendee ID: " + this.userID + "Attendee name: " + this.firstname + " " + this.lastname + "Company number: " + this.companyNumber);
+	}
 }
 	
 	

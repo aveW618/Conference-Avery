@@ -16,6 +16,7 @@ import java.util.*;
 				if there still exists !filled table arrays
 					if the table arrays only have one person per company
 	*/
+	
 public class Conference {
 	
 	//declaring variables
