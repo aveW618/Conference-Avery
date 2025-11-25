@@ -5,7 +5,6 @@
 import java.io.*;
 import java.util.*;
 
-public class Conference {
 	/*check if there are no more than 10 people from each company
 	check if there are no more than 100 people in attendance total
 	for loop to iterate through all of the guests and find those guests of company 1 and then split them into a separate array
@@ -17,6 +16,7 @@ public class Conference {
 				if there still exists !filled table arrays
 					if the table arrays only have one person per company
 	*/
+public class Conference {
 	
 	//declaring variables
 	int tables;

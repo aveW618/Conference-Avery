@@ -1,6 +1,8 @@
 //Avery Wang
 //Conference project
 
+/*Attendee class to create an 
+ */
 public class Attendee {
 	//declaring variables for attendee information
 	int userID;
