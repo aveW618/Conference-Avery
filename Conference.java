@@ -22,7 +22,14 @@ public class Conference {
     private static String companyFile = "companies.txt";
     private static String guestFile = "confGuests.txt";
     
-	
+    //declarations of any arraylists and arrays needed to store changing data about the attendees
+		//info including companyIds, companyNames, etc.
+	private ArrayList<Integer> companyIds;
+    private ArrayList<String> companyNames;
+    private ArrayList<Attendee> guests;
+    private Attendee[][] tables;
+    private int nextGuestId;
+
 	
 	/*
 	 * method to read in the guest data
