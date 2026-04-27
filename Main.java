@@ -25,8 +25,13 @@ public class Main {
     
 	//the main method to run the program
     public static void main(String[] args) throws FileNotFoundException {
-		Conference c1 = new Conference();
-		c1.readFile();
-		c1.manualRegistration();
+		Scanner scan = new Scanner(System.in);
+		//prints out the beginning of the program for a pretty user interface
+        System.out.println("========================================");
+        System.out.println("Inside & Out Conference Seating Manager");
+        System.out.println("========================================");
+        
+        System.out.println("Loaded " + companies.size() + " companies and " + guests.size() + " guests.");
+        System.out.println("Guests have been all been seated.\n");
 	}
 }	
