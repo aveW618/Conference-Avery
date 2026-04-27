@@ -1,14 +1,17 @@
-//Avery Wang
-//Conference project
-
-/*Attendee class to create an 
+/**
+ * Avery Wang
+ * April 26, 2026
+ * Inside & Out Conference Project
+ * Purpose: stores the conference attendee and his/her seat
  */
 public class Attendee {
 	//declaring variables for attendee information
-	int userID;
-	String firstName;
-	String lastName;
-	int companyNumber;
+	private int id;
+    private String firstName;
+    private String lastName;
+    private int companyId;
+    private int tableNumber;
+    private int seatNumber;
 	
 	/* Constructor to create an Attendee object
 	 * takes user ID, first name, last name, company number, and user ID
