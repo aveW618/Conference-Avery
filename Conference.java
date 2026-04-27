@@ -278,6 +278,24 @@ public class Conference {
             System.out.println();
         }
     }
+    
+    //method that prints all company rosters
+    public void printByCompany() {
+		//loops through each company (companyId)
+        for (int i = 0; i < companyIds.size(); i++) {
+            int companyId = companyIds.get(i);
+            System.out.println(companyNames.get(i));
+            //goes through each guest and checks if they are part of the current company
+            for (int j = 0; j < guests.size(); j++) {
+                Attendee guest = guests.get(j);
+                if (guest.getCompanyId() == companyId) {
+					//if so, print out the guest name and their seat
+                    System.out.println(guest.getFullName() + " - " + guest.seatText());
+                }
+            }
+            System.out.println();
+        }
+    }
       
     //checks if a table already has a guest from the company being tested
     private boolean tableHasCompany(int table, int companyId) {
