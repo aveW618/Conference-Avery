@@ -14,7 +14,17 @@ public class Main {
     private static int maxGuests = tableCount * seatsPerTable;
     private static int maxGuestsPerCompany = tableCount;
     
-	public static void main(String[] args) {
+    //declares the files to be imported
+    private static String companyFile = "companies.txt";
+    private static String guestFile = "confGuests.txt";
+
+	//creates the array lists and arrays that will be used later on
+    private static ArrayList<Company> companies = new ArrayList<Company>();
+    private static ArrayList<Guest> guests = new ArrayList<Guest>();
+    private static Guest[][] tables = new Guest[tableCount][seatsPerTable];
+    
+	//the main method to run the program
+    public static void main(String[] args) throws FileNotFoundException {
 		Conference c1 = new Conference();
 		c1.readFile();
 		c1.manualRegistration();
