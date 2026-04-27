@@ -104,7 +104,7 @@ public class Conference {
 	//method that checks total capacity of the conference, company capacity, and whether the company exists
 	private boolean canAdd(int companyId) {
 		//checks if the company exists (if it doesn't, the program will return -1)
-		if (companyId == -1) {
+		if (companyIndex(companyId) == -1) {
 			return false;
 		}
 
@@ -114,13 +114,38 @@ public class Conference {
 		}
 
 		//checks if the company already has the maximum number of guests
-		if (companyId >= maxGuestsPerCompany) {
+		if (companyCount(companyId) >= maxGuestsPerCompany) {
 			return false;
 		}
 
 		//if all checks passed, the guest can be added
 		return true;
 	}
+	
+	//method to find the index of a company ID
+    private int companyIndex(int companyId) {
+		//loops through the arrayList of companyIds to see if any match the tested company ID
+			//if so, return the index value, otherwise return -1 (i.e. null)
+        for (int i = 0; i <= companyIds.size(); i++) {
+            if (companyIds.get(i) == companyId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+	//method to count the guests from one company
+    private int companyCount(int companyId) {
+        int count = 0;
+        //loops through the guests arrayList to see how many guests match the tested companyID
+			//if they do, increment the counter
+        for (int i = 0; i <= guests.size(); i++) {
+            if (guests.get(i).getCompanyId() == companyId) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 	
 	
