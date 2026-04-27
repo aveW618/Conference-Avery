@@ -9,15 +9,13 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    
-    
-
-	
-    
 	//the main method to run the program
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
+		//gets user input
 		Scanner scan = new Scanner(System.in);
+		//creates a new Conference object to run in the main method
+		Conference c1 = new Conference();
+		
 		//prints out the beginning of the program for a pretty user interface
         System.out.println("========================================");
         System.out.println("Inside & Out Conference Seating Manager");
@@ -26,8 +24,9 @@ public class Main {
         System.out.println("Loaded " + companies.size() + " companies and " + guests.size() + " guests.");
         System.out.println("Guests have been all been seated.\n");
         
-           //prints out a menu of options
-	}	
+    
+    // method to print out a menu of options for the program
+	}
 	 public static void showMenu() {
         System.out.println("--------- Menu ---------");
         System.out.println("1. Add a guest");

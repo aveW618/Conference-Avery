@@ -29,6 +29,18 @@ public class Conference {
     private ArrayList<Attendee> guests;
     private Attendee[][] tables;
     private int nextGuestId;
+    
+    //creates an empty conference
+    public Conference() {
+		//actually initializing the arrayLists and arrays I created from above into a new and empty Conference
+			//basis for me to build up on later 
+        companyIds = new ArrayList<Integer>();
+        companyNames = new ArrayList<String>();
+        guests = new ArrayList<Attendee>();
+        tables = new Attendee[tableCount][seatsPerTable];
+        nextGuestId = 1;
+    }
+
 
 	
 	/*
