@@ -296,6 +296,24 @@ public class Conference {
             System.out.println();
         }
     }
+    
+    //method that allows users to manually search guests by first name or last name
+    public void search(String text) {
+		//converts any inputted text to lowercase
+        String search = text.toLowerCase();
+        boolean found = false;
+        //loops through the arrayList of guests
+        for (int i = 0; i < guests.size(); i++) {
+            Attendee guest = guests.get(i);
+            //converts the guest's obtained name to lowercase for better comparison
+            String full = guest.getFullName().toLowerCase();
+            //also gets the guest info with last name first than first name
+            String reverse = (guest.getLastName() + " " + guest.getFirstName()).toLowerCase();
+            //if the inputted text has an index within the full name or the revered name, print out the guest's name, company name (based on company Id) and seat
+            
+            
+            
+            
       
     //checks if a table already has a guest from the company being tested
     private boolean tableHasCompany(int table, int companyId) {
