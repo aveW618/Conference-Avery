@@ -130,9 +130,12 @@ public class Conference {
             guests.add(guest);
             //increments to the next guestId
             nextGuestId++;
+            //reseats everyone else
+            seatAll();
             //lets the user know if they successfully added a new guest
             System.out.println("Added " + guest.getFullName() + ".");
-        } else {
+        } 
+        else {
             System.out.println("Sorry! Could not add a guest. Check the company ID and conference capacity.");
         }
     }
@@ -168,6 +171,26 @@ public class Conference {
             }
         }
         return -1;
+    }
+    
+    //method to seat all guests (with the largest companies seated first, more difficult)
+    public void seatAll() {
+		//calls to method to make sure all seats are empty
+        clearSeats();
+        //an array ranking the order by which companies will be seated
+			//need to create a method that will actually rank the size of companies
+        int[] order;
+        //loops through the companies and their guests, obtaining the guest object information
+			//and then if the guest is from the company we are currently placing, display that guests have been seated
+        for (int i = 0; i < order.length; i++) {
+            for (int j = 0; j < guests.size(); j++) {
+                Attendee guest = guests.get(j);
+                if (guest.getCompanyId() != order[i]) {
+                    quit("Could not seat all guests.");
+                }
+            }
+        }
+        System.out.println("Guests have been seated.");
     }
     
 	//method to count the guests from one company
