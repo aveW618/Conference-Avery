@@ -4,6 +4,7 @@
  * Inside & Out Conference Project
  * Purpose: stores the conference attendee and his/her seat
  */
+ 
 public class Attendee {
 	//declaring variables for attendee information
 	private int id;
@@ -30,16 +31,17 @@ public class Attendee {
         tableNumber = -1;
         seatNumber = -1;
     }
-
-
-
-
-	/*
-	 * getters for the atrributes
-	 * returns the user ID, first name, last name, and company number
-	 */
-	public int getUserID() {
-		return userID;
+    
+    //setter to set this attendee's table and seat
+    public void setSeat(int tableNumber, int seatNumber) {
+        this.tableNumber = tableNumber;
+        this.seatNumber = seatNumber;
+    }
+    
+	//getters for the atrributes
+		//returns the user ID, first name, last name, and company number
+	public int getId() {
+        return id;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -47,9 +49,13 @@ public class Attendee {
 	public String getLastName() {
 		return lastName;
 	}
-	public int getCompanyNumber() {
-		return companyNumber;
+	public int getCompanyId() {
+		return companyId;
 	}
+	
+	
+	
+	
 	
 	public void toString() {
 		System.out.println("Attendee ID: " + this.userID + "Attendee name: " + this.firstname + " " + this.lastname + "Company number: " + this.companyNumber);
