@@ -80,7 +80,7 @@ public class Conference {
 		//actually scan the guest data
 		Scanner scan = new Scanner(guestTextFile);
 		
-		//tracker of how many guests are stored
+		//tracker of how many guests weren't able to be added/seated
 		int notAdded = 0;
 		
 		//read each line of the guest file while there is a next line
@@ -98,8 +98,30 @@ public class Conference {
 			
 			//create a new Attendee object
 			Attendee guest = new Attendee(guestId, firstName, lastName, companyId);
+				
 		}
 	}
+	//method that checks total capacity of the conference, company capacity, and whether the company exists
+	private boolean canAdd(int companyId) {
+		//checks if the company exists (if it doesn't, the program will return -1)
+		if (companyId == -1) {
+			return false;
+		}
+
+		//checks if the whole conference is full
+		if (guests.size() >= maxGuests) {
+			return false;
+		}
+
+		//checks if the company already has the maximum number of guests
+		if (companyId >= maxGuestsPerCompany) {
+			return false;
+		}
+
+		//if all checks passed, the guest can be added
+		return true;
+	}
+
 	
 	
 	
