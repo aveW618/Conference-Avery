@@ -53,13 +53,17 @@ public class Attendee {
 		return companyId;
 	}
 	
-	
-	
-	
-	
-	public void toString() {
-		System.out.println("Attendee ID: " + this.userID + "Attendee name: " + this.firstname + " " + this.lastname + "Company number: " + this.companyNumber);
-	}
+	//getter to return the full name
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    //returns the table and seat number in text formatting
+    public String seatText() {
+		//uses this comparison to make sure the seat is not empty
+        if (tableNumber == -1) {
+            return "Not seated";
+        }
+        return "Table " + tableNumber + ", Seat " + seatNumber;
+    }
 }
-	
-	
