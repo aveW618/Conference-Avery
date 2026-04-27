@@ -98,9 +98,45 @@ public class Conference {
 			
 			//create a new Attendee object
 			Attendee guest = new Attendee(guestId, firstName, lastName, companyId);
-				
+			//adds the guest if the company exists and the event/company is not full
+				//calls the canAdd method
+			if (canAdd(companyId)) {
+				guests.add(guest);
+
+				//updates the next available guest ID (increments it by 1)
+				if (guestId >= nextGuestId) {
+					nextGuestId = guestId + 1;
+				}
+			} 
+			else {
+				//increments the counter of people not added by 1
+				notAdded++;
+			}
+		}
+		scan.close();
+		//prints a message if any guests could not be added
+		if (notAdded > 0) {
+			System.out.println(notAdded + " guest(s) could not be added because the event or company limit was reached.");
 		}
 	}
+	
+	//method to manually add a guest and seats everyone again
+    public void addGuest(String first, String last, int companyId) {
+		//makes sure another guest can be added (calls canAdd method) and makes sure there is a user input
+        if (canAdd(companyId) && first.length() > 0 && last.length() > 0) {
+			//creates a new guest object
+            Attendee guest = new Attendee(nextGuestId, first, last, companyId);
+            //adds that guest object to the guest Array List
+            guests.add(guest);
+            //increments to the next guestId
+            nextGuestId++;
+            //lets the user know if they successfully added a new guest
+            System.out.println("Added " + guest.getFullName() + ".");
+        } else {
+            System.out.println("Sorry! Could not add a guest. Check the company ID and conference capacity.");
+        }
+    }
+    
 	//method that checks total capacity of the conference, company capacity, and whether the company exists
 	private boolean canAdd(int companyId) {
 		//checks if the company exists (if it doesn't, the program will return -1)
@@ -126,7 +162,7 @@ public class Conference {
     private int companyIndex(int companyId) {
 		//loops through the arrayList of companyIds to see if any match the tested company ID
 			//if so, return the index value, otherwise return -1 (i.e. null)
-        for (int i = 0; i <= companyIds.size(); i++) {
+        for (int i = 0; i < companyIds.size(); i++) {
             if (companyIds.get(i) == companyId) {
                 return i;
             }
@@ -139,7 +175,7 @@ public class Conference {
         int count = 0;
         //loops through the guests arrayList to see how many guests match the tested companyID
 			//if they do, increment the counter
-        for (int i = 0; i <= guests.size(); i++) {
+        for (int i = 0; i < guests.size(); i++) {
             if (guests.get(i).getCompanyId() == companyId) {
                 count++;
             }
@@ -199,16 +235,3 @@ public class Conference {
 	}
 	}
 }
-
-	
-	
-	
-	
-
-		
-	
-	
-	
-	
-	
-	
