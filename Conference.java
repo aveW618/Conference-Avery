@@ -225,11 +225,31 @@ public class Conference {
     public boolean seatOne(Attendee guest) {
 		//starting with a "empty" value for the number of the best table 
         int bestTable = -1;
+        // starts 1 above the max table size so any satisfactory table is smaller
         int bestSize = seatsPerTable + 1;
         //loops through each of the tables of the conference
 			//finds the table size for each of those tables
         for (int table = 0; table < tableCount; table++) {
             int size = tableSize(table);
+            //makes sure the size is less than 1 more than the max
+				//calls the tableHasCompany method to check and make sure a company isn't already located at a table
+            if (size < bestSize && !tableHasCompany(table, guest.getCompanyId())) {
+                bestTable = table;
+                bestSize = size;
+            }
+        }
+            
+      
+    //checks if a table already has the company being tested
+    private boolean tableHasCompany(int table, int companyId) {
+        for (int seat = 0; seat < seatsPerTable; seat++) {
+            Attendee guest = tables[table][seat];
+            if (guest != null && guest.getCompanyId() == companyId) {
+                return true;
+            }
+        }
+        return false;
+    }
             
  
  
