@@ -254,6 +254,30 @@ public class Conference {
         return false;
     }
             
+            
+    //method that prints all table rosters
+    public void printByTable() {
+		//loops through each table
+        for (int table = 0; table < tableCount; table++) {
+			//prints out table number
+            System.out.println("Table " + (table + 1));
+            //loops through each seat at the current table
+            for (int seat = 0; seat < seatsPerTable; seat++) {
+				//obtains the guest sitting at the seat and table
+                Attendee guest = tables[table][seat];
+                //prints that the seat is empty if there is no guest
+                if (guest == null) {
+                    System.out.println("Seat " + (seat + 1) + ": empty");
+                } 
+                //otherwise, print's the guest's name and company
+                else {
+                    System.out.println("Seat " + (seat + 1) + ": " + guest.getFullName()
+                            + " - " + companyName(guest.getCompanyId()));
+                }
+            }
+            System.out.println();
+        }
+    }
       
     //checks if a table already has a guest from the company being tested
     private boolean tableHasCompany(int table, int companyId) {
