@@ -238,12 +238,29 @@ public class Conference {
                 bestSize = size;
             }
         }
+        //table is still empty, no one has been seated
+        if (bestTable == -1) {
+            return false;
+        }
+        //loops through each of the seats setting the guests to the seat at the best table for them
+        for (int seat = 0; seat < seatsPerTable; seat++) {
+            if (tables[bestTable][seat] == null) {
+                tables[bestTable][seat] = guest;
+                //stores the seating of the guest object as a normal number instead of in array index form
+                guest.setSeat(bestTable + 1, seat + 1);
+                return true;
+            }
+        }
+        return false;
+    }
             
       
-    //checks if a table already has the company being tested
+    //checks if a table already has a guest from the company being tested
     private boolean tableHasCompany(int table, int companyId) {
         for (int seat = 0; seat < seatsPerTable; seat++) {
             Attendee guest = tables[table][seat];
+            //checks to see if the any of the guests' companyID matches the companyID being tested
+				//if so, return that the table cannot seat that guest because a coworker from the same is lready seated
             if (guest != null && guest.getCompanyId() == companyId) {
                 return true;
             }
