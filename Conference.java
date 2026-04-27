@@ -1,10 +1,11 @@
 /**
- * Avery Wang
- * April 26, 2026
+ * @author Avery Wang
+ * @since November, 19, 2026
  * Inside & Out Conference Project
  * Purpose: loads guests and companies, seats attendees, prints rosters, and searches guests (performs the main functions of the program)
  */
 
+//add multiline documentation before each method
 //imports Java libraries
 import java.io.*;
 import java.util.*;
@@ -12,6 +13,7 @@ import java.util.*;
 public class Conference {
 	
 	//declaring instance variables
+	//ask for user input for these values, no magic numbers
     private static int tableCount = 10;
     private static int seatsPerTable = 10;
     private static int maxCompanies = 16;
@@ -179,7 +181,7 @@ public class Conference {
         clearSeats();
         //an array ranking the order by which companies will be seated
 			//need to create a method that will actually rank the size of companies
-        int[] order;
+        int[] order = companyOrder();
         //loops through the companies and their guests, obtaining the guest object information
 			//and then if the guest is from the company we are currently placing, display that guests have been seated
         for (int i = 0; i < order.length; i++) {
@@ -191,6 +193,29 @@ public class Conference {
             }
         }
         System.out.println("Guests have been seated.");
+    }
+    
+    //method that returns company IDs ordered by number of guests, largest first
+    private int[] companyOrder() {
+		//creates an array with the size of the companyId ArrayList (number of arrays)
+        int[] order = new int[companyIds.size()];
+        //loops through the company Ids to set them to the corresponding position in the order array
+        for (int i = 0; i < order.length; i++) {
+            order[i] = companyIds.get(i);
+        }
+        //loop to order the companyIds by their size (largest to smallest)
+        for (int i = 0; i < order.length - 1; i++) {
+            int max = i;
+            for (int j = i + 1; j < order.length; j++) {
+                if (companyCount(order[j]) > companyCount(order[max])) {
+                    max = j;
+                }
+            }
+            int temp = order[i];
+            order[i] = order[max];
+            order[max] = temp;
+        }
+        return order;
     }
     
 	//method to count the guests from one company
