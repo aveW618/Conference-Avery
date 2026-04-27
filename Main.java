@@ -1,10 +1,12 @@
-//Avery Wang
-//April 26, 2026
-//Conference Project
+/**
+ * Avery Wang
+ * April 26, 2026
+ * Inside & Out Conference Project 
+ * Purpose: To run the option menu for my conference seating project
+ */
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 	//declaring instance variables
@@ -33,5 +35,15 @@ public class Main {
         
         System.out.println("Loaded " + companies.size() + " companies and " + guests.size() + " guests.");
         System.out.println("Guests have been all been seated.\n");
-	}
-}	
+        
+           //prints out a menu of options
+	}	
+	 public static void showMenu() {
+        System.out.println("--------- Menu ---------");
+        System.out.println("1. Add a guest");
+        System.out.println("2. Print rosters by table");
+        System.out.println("3. Print rosters by company");
+        System.out.println("4. Search for a guest");
+        System.out.println("5. Re-seat all guests");
+        System.out.println("0. Exit the program");
+    }

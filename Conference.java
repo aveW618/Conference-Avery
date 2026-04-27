@@ -1,35 +1,28 @@
-//Avery Wang
-//Conference Project
+/**
+ * Avery Wang
+ * April 26, 2026
+ * Inside & Out Conference Project
+ * Purpose: loads guests and companies, seats attendees, prints rosters, and searches guests (performs the main functions of the program)
+ */
 
-//load in external files
+//imports Java libraries
 import java.io.*;
 import java.util.*;
 
-	/*check if there are no more than 10 people from each company
-	check if there are no more than 100 people in attendance total
-	for loop to iterate through all of the guests and find those guests of company 1 and then split them into a separate array
-		then place them one by one in each of the table arrays
-			repeat for the remaining companies
-	add a user registration place
-		use the Scanner function
-			repeat the seating function above if the total number of guests is < than 100
-				if there still exists !filled table arrays
-					if the table arrays only have one person per company
-	*/
-	
 public class Conference {
 	
-	//declaring variables
-	int tables;
-	int seatsPerTable;
-	int attendees;
-	int companies;
-	int attendeesPerCompany;
-	int attendeeCounter;
+	//declaring instance variables
+    private static int tableCount = 10;
+    private static int seatsPerTable = 10;
+    private static int maxCompanies = 16;
+    private static int maxGuests = tableCount * seatsPerTable;
+    private static int maxGuestsPerCompany = tableCount;
+    
+    //declares the files to be imported
+    private static String companyFile = "companies.txt";
+    private static String guestFile = "confGuests.txt";
+    
 	
-	//delclaring an array to hold all attendees
-	Attendee[] items;
-	String filename = "confGuests.txt";
 	
 	/*
 	 * method to read in the guest data
