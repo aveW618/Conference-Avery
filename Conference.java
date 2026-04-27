@@ -41,13 +41,37 @@ public class Conference {
         nextGuestId = 1;
     }
 
-
+	//loads the default company and guest files
+		//prints out that info to inform the user about the original data
+    public void loadFiles() throws FileNotFoundException {
+        loadCompanies();
+        loadGuests();
+        System.out.println("Loaded " + companyIds.size() + " companies and " + guests.size() + " guests.");
+    }
 	
-	/*
-	 * method to read in the guest data
-	 * use throws IOException because the method may throw an exception that needs to be accounted for
-	 * after reading in the guest array, creates a ID array with the attendee info
-	*/
+	//loads company IDs and names from the companies.txt file
+	public void loadCompanies() throws FileNotFoundException {
+		File companyFile = new File("companies.txt");
+		Scanner scan = new Scanner(companyFile);
+
+		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
+			String line = scan.nextLine();
+
+			// Splits the line by commas
+			String[] companyData = line.split(",");
+
+			// Stores the data from the split array
+			int companyID = Integer.parseInt(companyData[0]);
+			String companyName = companyData[1];
+
+			// Adds the company ID and name to the lists
+			companyIds.add(companyID);
+			companyNames.add(companyName);
+		}
+		scan.close();
+	}
+	
+
 	public void readFile() throws IOException {
 		//reads in the confGuests file bto determine how many lines there are 
 			//to help with how big the guest array should be
