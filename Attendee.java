@@ -14,15 +14,26 @@ public class Attendee {
     private int seatNumber;
 	
 	/* Constructor to create an Attendee object
-	 * takes user ID, first name, last name, company number, and user ID
+	 * takes user ID, first name, last name, and company ID/number
 	 */
-	public Attendee(int id, String f, String l, int c) {
-		userID = id;
-		firstName = f;
-		lastName = l;
-		companyNumber = c;
+	public Attendee(int id, String firstname, String lastname, int companyId) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.companyId = companyId;
+		clearSeat();
 	}
 	
+	//a method to clear the attendee's seat
+		//-1 values to show the seats are empty
+	public void clearSeat() {
+        tableNumber = -1;
+        seatNumber = -1;
+    }
+
+
+
+
 	/*
 	 * getters for the atrributes
 	 * returns the user ID, first name, last name, and company number
