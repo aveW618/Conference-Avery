@@ -30,15 +30,33 @@ public class Main {
         //loop while a choice is inputted by the user
         while (choice != 0) {
             showMenu();
+            //scanners user input
             choice = readInt(scan, "Choose: ");
             System.out.println();
-            
+        
+        //if the user input is 1, manually add a guest
         if (choice == 1) {
-                String first = readText(keyboard, "Enter attendee first name: ");
-                String last = readText(keyboard, "Enter attendee last name: ");
-
+                String first = readText(scan, "Enter attendee first name: ");
+                String last = readText(scan, "Enter attendee last name: ");
+				
+				//assign the guest to a list of available companies
                 System.out.println("Available company IDs:");
                 conference.printCompanyList();
+                
+                //actually stores the company ID inputted by the user
+                int companyId = readInt(scan, "Enter Company ID from above available list: ");
+                //adds a new guest object to the arrayList
+                conference.addGuest(first, last, companyId);
+        }
+        //calls the method to print the table rosters
+        else if (choice == 2) {
+                conference.printByTable();
+            }
+        //calls the method to print the company rosters
+        else if (choice == 3) {
+                conference.printByCompany();
+
+            } 
 
         
     
