@@ -357,6 +357,18 @@ public class Conference {
         return false;
     }
     
+    //counts filled seats at one table
+    private int tableSize(int table) {
+        int count = 0;
+        //loop that increments the counter variable if the seat at a table is not null/empty
+        for (int seat = 0; seat < seatsPerTable; seat++) {
+            if (tables[table][seat] != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
 	//method to count the guests from one company
     private int companyCount(int companyId) {
         int count = 0;
@@ -368,4 +380,14 @@ public class Conference {
             }
         }
         return count;
+    }
+    
+    //method that finds the index for a company ID
+    private int companyIndex(int companyId) {
+        for (int i = 0; i < companyIds.size(); i++) {
+            if (companyIds.get(i) == companyId) {
+                return i;
+            }
+        }
+        return -1;
     }
