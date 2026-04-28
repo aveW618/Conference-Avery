@@ -163,18 +163,6 @@ public class Conference {
 		//if all checks passed, the guest can be added
 		return true;
 	}
-	
-	//method to find the index of a company ID
-    public int companyIndex(int companyId) {
-		//loops through the arrayList of companyIds to see if any match the tested company ID
-			//if so, return the index value, otherwise return -1 (i.e. null)
-        for (int i = 0; i < companyIds.size(); i++) {
-            if (companyIds.get(i) == companyId) {
-                return i;
-            }
-        }
-        return -1;
-    }
     
     //method to seat all guests (with the largest companies seated first, more difficult)
     public void seatAll() {
@@ -384,10 +372,28 @@ public class Conference {
     
     //method that finds the index for a company ID
     private int companyIndex(int companyId) {
+		//loops through the companyIds to find the index where the searched companyID matches the tested companyID
         for (int i = 0; i < companyIds.size(); i++) {
             if (companyIds.get(i) == companyId) {
                 return i;
             }
         }
+        //if the company ID does not have an index (does not exist yet) return null value (-1)
         return -1;
     }
+    
+    //returns the company name for a company ID
+    private String companyName(int companyId) {
+        int index = companyIndex(companyId);
+        if (index == -1) {
+            return "Unknown Company";
+        }
+        return companyNames.get(index);
+    }
+
+    //method that prints an error and quits the program if necessary
+    private void quit(String message) {
+        System.out.println("Error: " + message);
+        System.exit(1);
+    }
+}
