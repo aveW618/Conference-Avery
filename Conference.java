@@ -310,6 +310,17 @@ public class Conference {
             //also gets the guest info with last name first than first name
             String reverse = (guest.getLastName() + " " + guest.getFirstName()).toLowerCase();
             //if the inputted text has an index within the full name or the revered name, print out the guest's name, company name (based on company Id) and seat
+            if (full.indexOf(search) >= 0 || reverse.indexOf(search) >= 0) {
+                System.out.println(guest.getFullName() + " - " + companyName(guest.getCompanyId())
+                        + " - " + guest.seatText());
+                //boolean that ends the loop
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No guest found.");
+        }
+    }
             
             
             
