@@ -17,8 +17,6 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException{
 		//gets user input
 		Scanner scan = new Scanner(System.in);
-		//creates a new Conference object to run in the main method
-		Conference c1 = new Conference();
 		
 		//prints out the beginning of the program for a pretty user interface
         System.out.println("========================================");
@@ -35,11 +33,14 @@ public class Main {
 		System.out.print("Enter maximum number of companies: ");
 		int maxCompanies = scan.nextInt();
         
+        //creates a new Conference object to run in the main method
+		Conference c1 = new Conference();
+		
         //calls the loadFiles and seatAll methods on the c1 object
         c1.loadFiles();
         c1.seatAll();
         
-        //nulll value for choice at the beginning
+        //null value for choice at the beginning
         int choice = -1;
         
         //loop while a choice is inputted by the user
@@ -64,13 +65,18 @@ public class Main {
 					//assign the guest to a list of available companies
 					System.out.println("Available company IDs:");
 					c1.printCompanyList();
-				}
                 
-                //actually stores the company ID inputted by the user
-                int companyId = readInt(scan, "Enter Company ID from above available list: ");
-                //adds a new guest object to the arrayList
-                c1.addGuest(first, last, companyId);
-			}
+					//actually stores the company ID inputted by the user
+					int companyId = readInt(scan, "Enter Company ID from above available list: ");
+					//adds a new guest object to the arrayList
+					c1.addGuest(firstName, lastName, companyId);
+				}
+				
+				//creates a new company and then assigns the geust to that company
+				else if (companyChoice == 2) {
+                    int companyId = readInt(scan, "Enter new Company ID: ");
+                    String companyName = readText(scan, "Enter new Company name: ");
+			
 			//calls the method to print the table rosters
 			else if (choice == 2) {
 				c1.printByTable();
