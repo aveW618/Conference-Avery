@@ -2,7 +2,8 @@
  * @author Avery Wang
  * @since November, 19, 2026
  * Inside & Out Conference Project
- * Purpose: loads guests and companies, seats attendees, prints rosters, and searches guests (performs the main functions of the program)
+ * Purpose: Manages the main seating program by loading company and guest data, 
+ * assigning attendees to tables/seats, satisfying the background requirements, and printing rosters
  */
 
 						//add multiline documentation before each method*******
@@ -14,12 +15,12 @@ import java.util.*;
 public class Conference {
 	
 	//declaring instance variables
-						//ask for user input for these values, no magic numbers*****
-    private static int tableCount = 10;
-    private static int seatsPerTable = 10;
-    private static int maxCompanies = 16;
-    private static int maxGuests = tableCount * seatsPerTable;
-    private static int maxGuestsPerCompany = tableCount;
+		//ask for user input for these values
+    private int tableCount;
+    private int seatsPerTable;
+    private int maxCompanies;
+    private int maxGuests;
+    private int maxGuestsPerCompany;
     
     //declares the files to be imported
     private static String companyFile = "companies.txt";
@@ -34,7 +35,13 @@ public class Conference {
     private int nextGuestId;
     
     //creates an empty conference
-    public Conference() {
+    public Conference(int tableCount, int seatsPerTable, int maxCompanies) {
+		//stores the user-inputted conference size values (no magic numbers)
+		this.tableCount = tableCount;
+		this.seatsPerTable = seatsPerTable;
+        this.maxCompanies = maxCompanies;
+        this.maxGuests = tableCount * seatsPerTable;
+        this.maxGuestsPerCompany = tableCount;
 		//actually initializing the arrayLists and arrays I created from above into a new and empty Conference
 			//basis for me to build up on later 
         companyIds = new ArrayList<Integer>();
@@ -62,6 +69,8 @@ public class Conference {
 			//is less than the max number of companies allowed for this scenario
 		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
 			String line = scan.nextLine();
+			//skip lines that are empty
+			if (line.
 
 			// Splits the line by commas (the delimiters)
 			String[] companyData = line.split(",");
