@@ -34,8 +34,8 @@ public class Main {
             choice = readInt(scan, "Choose: ");
             System.out.println();
         
-        //if the user input is 1, manually add a guest
-        if (choice == 1) {
+			//if the user input is 1, manually add a guest
+			if (choice == 1) {
                 String first = readText(scan, "Enter attendee first name: ");
                 String last = readText(scan, "Enter attendee last name: ");
 				
@@ -47,27 +47,45 @@ public class Main {
                 int companyId = readInt(scan, "Enter Company ID from above available list: ");
                 //adds a new guest object to the arrayList
                 conference.addGuest(first, last, companyId);
-        }
-        //calls the method to print the table rosters
-        else if (choice == 2) {
-                conference.printByTable();
-            }
-        //calls the method to print the company rosters
-        else if (choice == 3) {
-                conference.printByCompany();
-
-            } 
-
-        
-    
-    // method to print out a menu of options for the program
+			}
+			//calls the method to print the table rosters
+			else if (choice == 2) {
+				conference.printByTable();
+				}
+			//calls the method to print the company rosters
+			else if (choice == 3) {
+				conference.printByCompany();
+			} 
+			//search for a guest
+			else if (choice == 4) {
+				String name = readText(keyboard, "Search name: ");
+				conference.search(name);
+			} 
+			//reseats all guests
+			else if (choice == 5) {
+				conference.seatAll();
+				System.out.println("Guests were seated again.");
+			} 
+			//ends the program
+			else if (choice == 0) {
+				System.out.println("Goodbye!");
+			}
+			//error detected
+			else {
+                System.out.println("Please choose a menu option.");
+			}
+			System.out.println();
+		}
+		scan.close();
 	}
-	 public static void showMenu() {
-        System.out.println("--------- Menu ---------");
-        System.out.println("1. Add a guest");
-        System.out.println("2. Print rosters by table");
-        System.out.println("3. Print rosters by company");
-        System.out.println("4. Search for a guest");
-        System.out.println("5. Re-seat all guests");
-        System.out.println("0. Exit the program");
+	
+    // method to print out a menu of options for the program
+	public static void showMenu() {
+       System.out.println("--------- Menu ---------");
+       System.out.println("1. Add a guest");
+       System.out.println("2. Print rosters by table");
+       System.out.println("3. Print rosters by company");
+       System.out.println("4. Search for an attendee");
+       System.out.println("5. Reseat all attendees");
+       System.out.println("0. Exit the program");
     }
