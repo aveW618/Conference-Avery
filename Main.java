@@ -1,11 +1,10 @@
 /**
- * Avery Wang
- * April 26, 2026
+ * @author Avery Wang
+ * @since November 19, 2026
  * Inside & Out Conference Project 
  * Purpose: To run the option menu for my conference seating project
  */
 
-import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -21,8 +20,26 @@ public class Main {
         System.out.println("Inside & Out Conference Seating Manager");
         System.out.println("========================================");
         
-        System.out.println("Loaded " + companies.size() + " companies and " + guests.size() + " guests.");
-        System.out.println("Guests have been all been seated.\n");
+        //calls the loadFiles and seatAll methods on the c1 object
+        c1.loadFiles();
+        c1.seatAll();
+        
+        //nulll value for choice at the beginning
+        int choice = -1;
+        
+        //loop while a choice is inputted by the user
+        while (choice != 0) {
+            showMenu();
+            choice = readInt(scan, "Choose: ");
+            System.out.println();
+            
+        if (choice == 1) {
+                String first = readText(keyboard, "Enter attendee first name: ");
+                String last = readText(keyboard, "Enter attendee last name: ");
+
+                System.out.println("Available company IDs:");
+                conference.printCompanyList();
+
         
     
     // method to print out a menu of options for the program
