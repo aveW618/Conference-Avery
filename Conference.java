@@ -322,27 +322,40 @@ public class Conference {
         }
     }
             
+    //prints company IDs for reference during manual registration
+		//guest can be assigned to the correct company
+    public void printCompanyList() {
+        for (int i = 0; i < companyIds.size(); i++) {
+            System.out.println(companyIds.get(i) + " = " + companyNames.get(i));
+        }
+    }
+    
+    //method to clear all table seats (before seating guests)
+    private void clearSeats() {
+		//loops through the table and seats and sets everything to null
+        for (int table = 0; table < tableCount; table++) {
+            for (int seat = 0; seat < seatsPerTable; seat++) {
+                tables[table][seat] = null;
+            }
+        }
+        //clears any seating already assigned to each guest
+        for (int i = 0; i < guests.size(); i++) {
+            guests.get(i).clearSeat();
+        }
+	}
             
-            
-            
-      
     //checks if a table already has a guest from the company being tested
     private boolean tableHasCompany(int table, int companyId) {
         for (int seat = 0; seat < seatsPerTable; seat++) {
             Attendee guest = tables[table][seat];
             //checks to see if the any of the guests' companyID matches the companyID being tested
-				//if so, return that the table cannot seat that guest because a coworker from the same is lready seated
+				//if so, return that the table cannot seat that guest because a coworker from the same is already seated
             if (guest != null && guest.getCompanyId() == companyId) {
                 return true;
             }
         }
         return false;
     }
-            
- 
- 
- 
- 
     
 	//method to count the guests from one company
     private int companyCount(int companyId) {
