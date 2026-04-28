@@ -6,10 +6,11 @@
  */
 
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	//the main method to run the program
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException{
 		//gets user input
 		Scanner scan = new Scanner(System.in);
 		//creates a new Conference object to run in the main method
@@ -41,29 +42,29 @@ public class Main {
 				
 				//assign the guest to a list of available companies
                 System.out.println("Available company IDs:");
-                conference.printCompanyList();
+                c1.printCompanyList();
                 
                 //actually stores the company ID inputted by the user
                 int companyId = readInt(scan, "Enter Company ID from above available list: ");
                 //adds a new guest object to the arrayList
-                conference.addGuest(first, last, companyId);
+                c1.addGuest(first, last, companyId);
 			}
 			//calls the method to print the table rosters
 			else if (choice == 2) {
-				conference.printByTable();
+				c1.printByTable();
 				}
 			//calls the method to print the company rosters
 			else if (choice == 3) {
-				conference.printByCompany();
+				c1.printByCompany();
 			} 
 			//search for a guest
 			else if (choice == 4) {
-				String name = readText(keyboard, "Search name: ");
-				conference.search(name);
+				String name = readText(scan, "Search name: ");
+				c1.search(name);
 			} 
 			//reseats all guests
 			else if (choice == 5) {
-				conference.seatAll();
+				c1.seatAll();
 				System.out.println("Guests were seated again.");
 			} 
 			//ends the program
@@ -89,3 +90,20 @@ public class Main {
        System.out.println("5. Reseat all attendees");
        System.out.println("0. Exit the program");
     }
+    
+    //reads one line of text from the user
+    public static String readText(Scanner scan, String prompt) {
+		//prints out the prompt to read
+        System.out.print(prompt);
+        return scan.nextLine();
+    }
+
+    //reads a whole number from the user
+    public static int readInt(Scanner scan, String prompt) {
+		//prints out the prompt to be read
+        System.out.print(prompt);
+        int number = scan.nextInt();
+        scan.nextLine();
+        return number;
+    }
+}
