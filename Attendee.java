@@ -1,8 +1,8 @@
 /**
- * Avery Wang
- * April 26, 2026
+ * @author Avery Wang
+ * @since November 19, 2026
  * Inside & Out Conference Project
- * Purpose: stores the conference attendee and his/her seat
+ * Purpose: Represents the info of one conference attendee including their personal information company ID, and seat assignment
  */
  
 public class Attendee {
@@ -14,8 +14,10 @@ public class Attendee {
     private int tableNumber;
     private int seatNumber;
 	
-	/* Constructor to create an Attendee object
-	 * takes user ID, first name, last name, and company ID/number
+	/* 
+	 * Constructor to create an Attendee object
+	 * Stores the user ID, first name, last name, and company ID/number
+	 * It also clears the attendee's seat so they start without being seated
 	 */
 	public Attendee(int id, String firstname, String lastname, int companyId) {
 		this.id = id;
@@ -25,21 +27,28 @@ public class Attendee {
 		clearSeat();
 	}
 	
-	//a method to clear the attendee's seat
-		//-1 values to show the seats are empty
+	/*
+	 * A method to clear the attendee's seat assignment
+	 * The -1 values show that the attendee is not currently seated
+	*/
 	public void clearSeat() {
         tableNumber = -1;
         seatNumber = -1;
     }
     
-    //setter to set this attendee's table and seat
+    /*
+     * Sets this attendee's assigned table and seat
+     * The table and seat numbers are stored as normal numbers, not array indices
+     */
     public void setSeat(int tableNumber, int seatNumber) {
         this.tableNumber = tableNumber;
         this.seatNumber = seatNumber;
     }
     
-	//getters for the atrributes
-		//returns the user ID, first name, last name, and company number
+	/*
+	 * getters for the atrributes
+	 * returns the user ID, first name, last name, and company number
+	 */
 	public int getId() {
         return id;
 	}
@@ -53,17 +62,20 @@ public class Attendee {
 		return companyId;
 	}
 	
-	//getter to return the full name
+	//returns the attendee's full name
     public String getFullName() {
-        return firstName + " " + lastName;
+        return (firstName + " " + lastName);
     }
 
-    //returns the table and seat number in text formatting
+    /*
+     * Returns the attendee's table and seat information as a text
+     * If the attendee has not been seated yet, the method returns "Not Seated"
+     */
     public String seatText() {
 		//uses this comparison to make sure the seat is not empty
         if (tableNumber == -1) {
-            return "Not seated";
+            return ("Not seated");
         }
-        return "Table " + tableNumber + ", Seat " + seatNumber;
+        return ("Table " + tableNumber + ", Seat " + seatNumber);
     }
 }
