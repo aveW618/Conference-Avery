@@ -2,14 +2,18 @@
  * @author Avery Wang
  * @since November 19, 2026
  * Inside & Out Conference Project 
- * Purpose: To run the option menu for my conference seating project
+ * Purpose: Runs the user menu for the conference program; the menu allows users to add attendees, print rosters
+ * search attendees, and reseat guests
  */
 
 import java.util.*;
 import java.io.*;
 
 public class Main {
-	//the main method to run the program
+	/*
+	 * Main method that runs the full conference program
+	 * The method loads the files, seats the guests, and keep showing the menu until the user quits the program
+	 */
     public static void main(String[] args) throws FileNotFoundException{
 		//gets user input
 		Scanner scan = new Scanner(System.in);
@@ -20,6 +24,16 @@ public class Main {
         System.out.println("========================================");
         System.out.println("Inside & Out Conference Seating Manager");
         System.out.println("========================================");
+        
+		//reads the conference size information from the user
+		System.out.print("Enter number of tables: ");
+		int tableCount = scan.nextInt();
+
+		System.out.print("Enter seats per table: ");
+		int seatsPerTable = scan.nextInt();
+
+		System.out.print("Enter maximum number of companies: ");
+		int maxCompanies = scan.nextInt();
         
         //calls the loadFiles and seatAll methods on the c1 object
         c1.loadFiles();
@@ -40,9 +54,17 @@ public class Main {
                 String first = readText(scan, "Enter attendee first name: ");
                 String last = readText(scan, "Enter attendee last name: ");
 				
-				//assign the guest to a list of available companies
-                System.out.println("Available company IDs:");
-                c1.printCompanyList();
+				//lets the user choose an existing company or create a new company
+                System.out.println("1. Use an existing company");
+                System.out.println("2. Create a new company");
+                int companyChoice = readInt(scan, "Choose company option: ");
+                
+                //assign the guest to a list of available companies
+                if (companyChoice == 1) {
+					//assign the guest to a list of available companies
+					System.out.println("Available company IDs:");
+					c1.printCompanyList();
+				}
                 
                 //actually stores the company ID inputted by the user
                 int companyId = readInt(scan, "Enter Company ID from above available list: ");
@@ -80,7 +102,9 @@ public class Main {
 		scan.close();
 	}
 	
-    // method to print out a menu of options for the program
+    /*
+     * Prints out the menu options that the user can choose from for the program
+     */
 	public static void showMenu() {
        System.out.println("--------- Menu ---------");
        System.out.println("1. Add a guest");
@@ -91,14 +115,20 @@ public class Main {
        System.out.println("0. Exit the program");
     }
     
-    //reads one line of text from the user
+    /*
+     * Reads one line of text from the user
+     * This is used for names and search text snippets
+     */
     public static String readText(Scanner scan, String prompt) {
 		//prints out the prompt to read
         System.out.print(prompt);
         return scan.nextLine();
     }
 
-    //reads a whole number from the user
+    /*
+     * Reads a whole number from the user
+     * This is used for menu choices and company Ids
+     */
     public static int readInt(Scanner scan, String prompt) {
 		//prints out the prompt to be read
         System.out.print(prompt);
