@@ -1,7 +1,7 @@
 /**
  * @author Avery Wang
  * @since November, 19, 2026
- * Inside & Out Conference Project
+ * Program: Inside & Out Conference Project
  * Purpose: Manages the main seating program by loading company and guest data, 
  * assigning attendees to tables/seats, satisfying the background requirements, and printing rosters
  */
@@ -51,15 +51,21 @@ public class Conference {
         nextGuestId = 1;
     }
 
-	//loads the default company and guest files
-		//prints out that info to inform the user about the original data
+	/*
+	 * loads the default company and guest files
+	 * also makes sure to account for speical exceptions
+	 * prints out that info to inform the user about the values of the original guest size, company size, etc.
+	 */
     public void loadFiles() throws FileNotFoundException {
         loadCompanies();
         loadGuests();
         System.out.println("Loaded " + companyIds.size() + " companies and " + guests.size() + " guests.");
     }
 	
-	//loads company IDs and names from the companies.txt file
+	/*
+	 * a method that loads company information from the companies.txt file and stores each company ID with its matching company name
+	 * I was getting runtime exceptions/errors so I had to add a line of code checking if there is info in the next line being scanned
+	 */
 	public void loadCompanies() throws FileNotFoundException {
 		File companyTextFile = new File(companyFile);
 		Scanner scan = new Scanner(companyTextFile);
@@ -67,14 +73,15 @@ public class Conference {
 		//makes sure there is info to read and that the number of company Ids (stored in an arrray list)
 			//is less than the max number of companies allowed for this scenario
 		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
-			String line = scan.nextLine().trim();
+			String line = scan.nextLine();
+			//learned how to use the continue statement from W3 schools to account for any possible exceptions/errors
 			if (line.isEmpty()) {
 				continue;
 			}
 			String[] companyData = line.split(",");
 
-			int companyId = Integer.parseInt(companyData[0].trim());
-			String companyName = companyData[1].trim();
+			int companyId = Integer.parseInt(companyData[0]);
+			String companyName = companyData[1];
 		
 			//adds company info into storage
 			companyIds.add(companyId);
@@ -125,7 +132,11 @@ public class Conference {
 		}
 	}
 	
-	//method to manually add a guest and seats everyone again
+	/*
+	 * Method to manually add a guest and seats everyone again
+	 * Difficult because it calls on multiple methods which I had to spend a lot of time to plan out and write
+	 * Actually bringing together all the previously written components was the fun part 
+	 */
     public void addGuest(String first, String last, int companyId) {
 		//makes sure another guest can be added (calls canAdd method) and makes sure there is a user input
         if (canAdd(companyId) && first.length() > 0 && last.length() > 0) {
@@ -148,6 +159,16 @@ public class Conference {
             System.out.println("Sorry! Could not add a company. The company limit was reached.");
             return false;
         }
+        if (companyIndex(companyId) != -1) {
+			System.out.println("Sorry! That company ID already exists.");
+			return false;
+		}
+
+		if (companyName.length() == 0) {		
+		System.out.println("Sorry! Company name cannot be empty.");
+			return false;
+		}
+		
         //adds the new company ID and name to the array lists
         companyIds.add(companyId);
         companyNames.add(companyName);
