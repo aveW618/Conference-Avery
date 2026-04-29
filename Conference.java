@@ -61,7 +61,6 @@ public class Conference {
 	
 	//loads company IDs and names from the companies.txt file
 	public void loadCompanies() throws FileNotFoundException {
-		//loads/scans the company file
 		File companyTextFile = new File(companyFile);
 		Scanner scan = new Scanner(companyTextFile);
 		
@@ -69,20 +68,17 @@ public class Conference {
 			//is less than the max number of companies allowed for this scenario
 		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
 			String line = scan.nextLine().trim();
-			//only process lines that are not blank
-			if (line.length() > 0) {
-				String[] companyData = line.split(",");
-
-				//only process lines that have both an ID and a company name
-				if (companyData.length >= 2 && companyData[0].trim().length() > 0 && companyData[1].trim().length() > 0) {
-					//gets company info
-					int companyId = Integer.parseInt(companyData[0].trim());
-					String companyName = companyData[1].trim();
-					//adds company info into storage
-					companyIds.add(companyId);
-					companyNames.add(companyName);
-				}
+			if (line.isEmpty()) {
+				continue;
 			}
+			String[] companyData = line.split(",");
+
+			int companyId = Integer.parseInt(companyData[0].trim());
+			String companyName = companyData[1].trim();
+		
+			//adds company info into storage
+			companyIds.add(companyId);
+			companyNames.add(companyName);
 		}
 		scan.close();
 	}	
@@ -93,40 +89,32 @@ public class Conference {
 		//actually scan the guest data
 		Scanner scan = new Scanner(guestTextFile);
 		
-		//tracker of how many guests weren't able to be added/seated
 		int notAdded = 0;
 		
 		//read each line of the guest file while there is a next line
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine().trim();
 			
-			//skip lines that are empty
             if (line.isEmpty()) {
 				continue;
 			}
-				
-			//splits the lines by commas 
 			String[] guestData = line.split(",");
 			
-			//stores the data from the split array
 			int guestId = Integer.parseInt(guestData[0].trim());
 			String firstName = guestData[1].trim();
 			String lastName = guestData[2].trim();
 			int companyId = Integer.parseInt(guestData[3].trim());
 			
-			//create a new Attendee object
 			Attendee guest = new Attendee(guestId, firstName, lastName, companyId);
 			//adds the guest if the company exists and the event/company is not full
 				//calls the canAdd method
 			if (canAdd(companyId)) {
 				guests.add(guest);
-				//updates the next available guest ID (increments it by 1)
 				if (guestId >= nextGuestId) {
 					nextGuestId = guestId + 1;
 				}
 			} 
 			else {
-				//increments the counter of people not added by 1
 				notAdded++;
 			}
 		}
@@ -141,15 +129,11 @@ public class Conference {
     public void addGuest(String first, String last, int companyId) {
 		//makes sure another guest can be added (calls canAdd method) and makes sure there is a user input
         if (canAdd(companyId) && first.length() > 0 && last.length() > 0) {
-			//creates a new guest object
             Attendee guest = new Attendee(nextGuestId, first, last, companyId);
-            //adds that guest object to the guest Array List
+            //adds guest object to the guest Array List
             guests.add(guest);
-            //increments to the next guestId
             nextGuestId++;
-            //reseats everyone else
             seatAll();
-            //lets the user know if they successfully added a new guest
             System.out.println("Added " + guest.getFullName() + ".");
         } 
         else {
@@ -173,30 +157,21 @@ public class Conference {
         
 	//method that checks total capacity of the conference, company capacity, and whether the company exists
 	public boolean canAdd(int companyId) {
-		//checks if the company exists (if it doesn't, the program will return -1)
 		if (companyIndex(companyId) == -1) {
 			return false;
 		}
-
-		//checks if the whole conference is full
 		if (guests.size() >= maxGuests) {
 			return false;
 		}
-
-		//checks if the company already has the maximum number of guests
 		if (companyCount(companyId) >= maxGuestsPerCompany) {
 			return false;
 		}
-
-		//if all checks passed, the guest can be added
 		return true;
 	}
     
     //method to seat all guests (with the largest companies seated first, more difficult)
     public void seatAll() {
-		//calls to method to make sure all seats are empty
         clearSeats();
-        //an array ranking the order by which companies will be seated
         int[] order = companyOrder();
         //loops through the companies and their guests, obtaining the guest object information
 			//and then if the guest is from the company we are currently placing, display that guests have been seated
@@ -215,7 +190,6 @@ public class Conference {
     public int[] companyOrder() {
 		//creates an array with the size of the companyId ArrayList (number of arrays)
         int[] order = new int[companyIds.size()];
-        //loops through the company Ids to set them to the corresponding position in the order array
         for (int i = 0; i < order.length; i++) {
             order[i] = companyIds.get(i);
         }
@@ -239,9 +213,7 @@ public class Conference {
      * the method reads in a guest object, inputted by the user
      */
     public boolean seatOne(Attendee guest) {
-		//starting with a "empty" value for the number of the best table 
         int bestTable = -1;
-        // starts 1 above the max table size so any satisfactory table is smaller
         int bestSize = seatsPerTable + 1;
         //loops through each of the tables of the conference
 			//finds the table size for each of those tables
@@ -273,19 +245,14 @@ public class Conference {
             
     //method that prints all table rosters
     public void printByTable() {
-		//loops through each table
         for (int table = 0; table < tableCount; table++) {
-			//prints out table number
             System.out.println("Table " + (table + 1));
-            //loops through each seat at the current table
             for (int seat = 0; seat < seatsPerTable; seat++) {
-				//obtains the guest sitting at the seat and table
                 Attendee guest = tables[table][seat];
                 //prints that the seat is empty if there is no guest
                 if (guest == null) {
                     System.out.println("Seat " + (seat + 1) + ": empty");
                 } 
-                //otherwise, print's the guest's name and company
                 else {
                     System.out.println("Seat " + (seat + 1) + ": " + guest.getFullName()
                             + " - " + companyName(guest.getCompanyId()));
@@ -297,7 +264,6 @@ public class Conference {
     
     //method that prints all company rosters
     public void printByCompany() {
-		//loops through each company (companyId)
         for (int i = 0; i < companyIds.size(); i++) {
             int companyId = companyIds.get(i);
             System.out.println(companyNames.get(i));
@@ -305,7 +271,6 @@ public class Conference {
             for (int j = 0; j < guests.size(); j++) {
                 Attendee guest = guests.get(j);
                 if (guest.getCompanyId() == companyId) {
-					//if so, print out the guest name and their seat
                     System.out.println(guest.getFullName() + " - " + guest.seatText());
                 }
             }
@@ -318,18 +283,14 @@ public class Conference {
 		//converts any inputted text to lowercase
         String search = text.toLowerCase();
         boolean found = false;
-        //loops through the arrayList of guests
         for (int i = 0; i < guests.size(); i++) {
             Attendee guest = guests.get(i);
-            //converts the guest's obtained name to lowercase for better comparison
             String full = guest.getFullName().toLowerCase();
-            //also gets the guest info with last name first than first name
             String reverse = (guest.getLastName() + " " + guest.getFirstName()).toLowerCase();
             //if the inputted text has an index within the full name or the revered name, print out the guest's name, company name (based on company Id) and seat
             if (full.indexOf(search) >= 0 || reverse.indexOf(search) >= 0) {
                 System.out.println(guest.getFullName() + " - " + companyName(guest.getCompanyId())
                         + " - " + guest.seatText());
-                //boolean that ends the loop
                 found = true;
             }
         }
@@ -354,7 +315,6 @@ public class Conference {
                 tables[table][seat] = null;
             }
         }
-        //clears any seating already assigned to each guest
         for (int i = 0; i < guests.size(); i++) {
             guests.get(i).clearSeat();
         }

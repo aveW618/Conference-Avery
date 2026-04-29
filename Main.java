@@ -24,15 +24,9 @@ public class Main {
         System.out.println("========================================");
         
 		//reads the conference size information from the user
-		System.out.print("Enter number of tables: ");
-		int tableCount = scan.nextInt();
-
-		System.out.print("Enter seats per table: ");
-		int seatsPerTable = scan.nextInt();
-
-		System.out.print("Enter maximum number of companies: ");
-		int maxCompanies = scan.nextInt();
-		scan.nextLine();
+        int tableCount = readPositiveInt(scan, "Enter number of tables: ");
+        int seatsPerTable = readPositiveInt(scan, "Enter seats per table: ");
+        int maxCompanies = readPositiveInt(scan, "Enter maximum number of companies: ");
         
         //creates a new Conference object to run in the main method
 		Conference c1 = new Conference(tableCount, seatsPerTable, maxCompanies);
@@ -155,6 +149,18 @@ public class Main {
         System.out.print(prompt);
         int number = scan.nextInt();
         scan.nextLine();
+        return number;
+    }
+    
+    //Reads a positive whole number from the user, this is used for the scanning of conference size values
+    public static int readPositiveInt(Scanner scan, String prompt) {
+		//reads the number in
+        int number = readInt(scan, prompt);
+        //makes sure the number is positive before storing it
+        while (number <= 0) {
+            System.out.println("Please enter a positive number.");
+            number = readInt(scan, prompt);
+        }
         return number;
     }
 }
