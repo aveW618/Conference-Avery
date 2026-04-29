@@ -68,16 +68,14 @@ public class Conference {
 		//makes sure there is info to read and that the number of company Ids (stored in an arrray list)
 			//is less than the max number of companies allowed for this scenario
 		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
-			String line = scan.nextLine();
-			//skip lines that are empty
-			if (line.
-
+			String line = scan.nextLine().trim();
+			
 			// Splits the line by commas (the delimiters)
 			String[] companyData = line.split(",");
 
 			// Stores the data from the split array
-			int companyId = Integer.parseInt(companyData[0]);
-			String companyName = companyData[1];
+			int companyId = Integer.parseInt(companyData[0].trim());
+			String companyName = companyData[1].trim();
 
 			// Adds the company ID and name to the array lists
 			companyIds.add(companyId);
@@ -97,16 +95,16 @@ public class Conference {
 		
 		//read each line of the guest file while there is a next line
 		while (scan.hasNextLine()) {
-			String line = scan.nextLine();
+			String line = scan.nextLine().trim();
 			
 			//splits the lines by commas 
 			String[] guestData = line.split(",");
 			
 			//stores the data from the split array
-			int guestId = Integer.parseInt(guestData[0]);
-			String firstName = guestData[1];
-			String lastName = guestData[2];
-			int companyId = Integer.parseInt(guestData[3]);
+			int guestId = Integer.parseInt(guestData[0].trim());
+			String firstName = guestData[1].trim();
+			String lastName = guestData[2].trim();
+			int companyId = Integer.parseInt(guestData[3].trim());
 			
 			//create a new Attendee object
 			Attendee guest = new Attendee(guestId, firstName, lastName, companyId);
@@ -152,6 +150,20 @@ public class Conference {
         }
     }
     
+    //method to manually add a new company to the company list
+    public boolean addCompany(int companyId, String companyName) {
+		//checks if there is room to create another company
+        if (companyIds.size() >= maxCompanies) {
+            System.out.println("Sorry! Could not add a company. The company limit was reached.");
+            return false;
+        }
+        //adds the new company ID and name to the array lists
+        companyIds.add(companyId);
+        companyNames.add(companyName);
+        System.out.println("Added company " + companyName + ".");
+        return true;
+    }
+        
 	//method that checks total capacity of the conference, company capacity, and whether the company exists
 	public boolean canAdd(int companyId) {
 		//checks if the company exists (if it doesn't, the program will return -1)
