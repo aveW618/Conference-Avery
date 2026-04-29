@@ -6,12 +6,15 @@
  * assigning attendees to tables/seats, satisfying the background requirements, and printing rosters
  */
 
-						//add multiline documentation before each method*******
-
-//imports Java libraries
 import java.io.*;
 import java.util.*;
 
+/*
+ * This class works to manage the overall conference seating system including loading data, assigning seats, 
+ * printing rosters, and searching for attendees (all the choices from the user menu).
+ * I struggled a lot with the overarching logic for this class and exactly what methods would I need to include 
+ * in order to account for all the special conditions for seating (1 atendee from each company per table, etc.)
+ */
 public class Conference {
 	
 	//declaring instance variables
@@ -34,7 +37,9 @@ public class Conference {
     private Attendee[][] tables;
     private int nextGuestId;
     
-    //creates an empty conference
+     /*
+     * creates a Conference object and initializes the guest list, company availaility, and seating chart
+     */
     public Conference(int tableCount, int seatsPerTable, int maxCompanies) {
 		//stores the user-inputted conference size values (no magic numbers)
 		this.tableCount = tableCount;
@@ -90,7 +95,11 @@ public class Conference {
 		scan.close();
 	}	
 	
-	//loads guests and their info from the confGuests.txt file
+	/* 
+	 * methods that loads guest and their info from the confGuests.txt file
+	 * creates Attendee objects and adds valid guests to the guest list
+	 * I used a lot of the same code from my loadCompanies method (similar purposes and structures) making this part of code a bit easier
+	 */
 	public void loadGuests() throws FileNotFoundException {
 		File guestTextFile = new File(guestFile);
 		//actually scan the guest data
@@ -100,17 +109,17 @@ public class Conference {
 		
 		//read each line of the guest file while there is a next line
 		while (scan.hasNextLine()) {
-			String line = scan.nextLine().trim();
-			
+			String line = scan.nextLine();
             if (line.isEmpty()) {
 				continue;
 			}
 			String[] guestData = line.split(",");
 			
-			int guestId = Integer.parseInt(guestData[0].trim());
-			String firstName = guestData[1].trim();
-			String lastName = guestData[2].trim();
-			int companyId = Integer.parseInt(guestData[3].trim());
+			//stores the split data from the guest file
+			int guestId = Integer.parseInt(guestData[0]);
+			String firstName = guestData[1];
+			String lastName = guestData[2];
+			int companyId = Integer.parseInt(guestData[3]);
 			
 			Attendee guest = new Attendee(guestId, firstName, lastName, companyId);
 			//adds the guest if the company exists and the event/company is not full
@@ -122,11 +131,11 @@ public class Conference {
 				}
 			} 
 			else {
+				//increments the counter of people not added by 1
 				notAdded++;
 			}
 		}
 		scan.close();
-		//prints a message if any guests could not be added
 		if (notAdded > 0) {
 			System.out.println(notAdded + " guest(s) could not be added because the event or company limit was reached.");
 		}
@@ -152,7 +161,14 @@ public class Conference {
         }
     }
     
-    //method to manually add a new company to the company list
+    /*
+     * method to manually add a new company to the company list (part of the user menu)
+     * Parameters: company ID and company name
+     * Returns false if the company can't be added, already exists, or was inputted wrong
+     * Otherwise returns true
+     * I originally only accounted for the max amount of companies able to be added
+     * Later, I added in tests to see if the user inputted any info and if that info is not repeated
+     */
     public boolean addCompany(int companyId, String companyName) {
 		//checks if there is room to create another company
         if (companyIds.size() >= maxCompanies) {
@@ -176,7 +192,12 @@ public class Conference {
         return true;
     }
         
-	//method that checks total capacity of the conference, company capacity, and whether the company exists
+	/*
+	 * method that checks total capacity of the conference, company capacity, and whether the company exists
+	 * See if another guest can be added
+	 * Parameters: the company ID being checked
+	 * Return: true if a guest can be added, and false otherwise
+	 */
 	public boolean canAdd(int companyId) {
 		if (companyIndex(companyId) == -1) {
 			return false;
@@ -190,7 +211,10 @@ public class Conference {
 		return true;
 	}
     
-    //method to seat all guests (with the largest companies seated first, more difficult)
+    /*
+     * method to seat all guests (with the largest companies seated first, more difficult to fit)
+     * I needed to think about first the order I would seat guests and also how I would first create that order (a challenge)
+     */
     public void seatAll() {
         clearSeats();
         int[] order = companyOrder();
@@ -207,7 +231,11 @@ public class Conference {
         System.out.println("Guests have been seated.");
     }
     
-    //method that returns company IDs ordered by number of guests, largest first
+    /*
+     * method that returns company IDs ordered by number of guests, largest first
+     * helps with the method that seats the guests
+     * returns the array of companyIDs
+     */
     public int[] companyOrder() {
 		//creates an array with the size of the companyId ArrayList (number of arrays)
         int[] order = new int[companyIds.size()];
