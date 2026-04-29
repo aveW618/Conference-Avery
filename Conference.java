@@ -260,6 +260,8 @@ public class Conference {
     /*
      * method that seats one guest at the least-full table that satisfies other seating conditions
      * the method reads in a guest object, inputted by the user
+     * Parameters: a guest object
+     * Returns true if the best table has been found, false otherwise
      */
     public boolean seatOne(Attendee guest) {
         int bestTable = -1;
@@ -279,11 +281,11 @@ public class Conference {
         if (bestTable == -1) {
             return false;
         }
-        //loops through each of the seats setting the guests to the seat at the best table for them
+        //loops through each of the seats setting, the guests to the seat at the best table for them
         for (int seat = 0; seat < seatsPerTable; seat++) {
             if (tables[bestTable][seat] == null) {
                 tables[bestTable][seat] = guest;
-                //stores the seating of the guest object as a normal number instead of in array index form
+                //stores the seating of the guest object as a normal number instead of an array index form
                 guest.setSeat(bestTable + 1, seat + 1);
                 return true;
             }
@@ -292,7 +294,10 @@ public class Conference {
     }
             
             
-    //method that prints all table rosters
+    /*
+     * method that prints the seating roster organized by table
+     * each seat is either shown with the assigend attendee or listed as empty
+     */
     public void printByTable() {
         for (int table = 0; table < tableCount; table++) {
             System.out.println("Table " + (table + 1));
@@ -311,7 +316,9 @@ public class Conference {
         }
     }
     
-    //method that prints all company rosters
+    /*
+     * method that prints all company rosters so that the user can see which attendees belong to each company in an easier way
+     */
     public void printByCompany() {
         for (int i = 0; i < companyIds.size(); i++) {
             int companyId = companyIds.get(i);
@@ -327,7 +334,10 @@ public class Conference {
         }
     }
     
-    //method that allows users to manually search guests by first name or last name
+    /*
+     * method that allows users to manually search guests by first name or last name (or both)
+     * Parameters: the text of the name entered by the user
+     */
     public void search(String text) {
 		//converts any inputted text to lowercase
         String search = text.toLowerCase();
@@ -348,15 +358,20 @@ public class Conference {
         }
     }
             
-    //prints company IDs for reference during manual registration
-		//guest can be assigned to the correct company
+    /*
+     * method that prints a list of company IDs for reference during manual registration
+     * better readlibility for users
+     */
     public void printCompanyList() {
         for (int i = 0; i < companyIds.size(); i++) {
             System.out.println(companyIds.get(i) + " = " + companyNames.get(i));
         }
     }
     
-    //method to clear all table seats (before seating guests)
+    /*
+     * method to clear the entire seating chart
+     * also removes each attendee's stored table and seat assignment
+     */
     private void clearSeats() {
 		//loops through the table and seats and sets everything to null
         for (int table = 0; table < tableCount; table++) {
@@ -369,7 +384,11 @@ public class Conference {
         }
 	}
             
-    //checks if a table already has a guest from the company being tested
+    /*
+     * a method that checks if a table already has a guest from the company being tested
+     * Parameters: the table number and company ID
+     * Returns true if there already is a guest from the same company sitting at a table and false otherse
+     */
     private boolean tableHasCompany(int table, int companyId) {
         for (int seat = 0; seat < seatsPerTable; seat++) {
             Attendee guest = tables[table][seat];
@@ -382,7 +401,11 @@ public class Conference {
         return false;
     }
     
-    //counts filled seats at one table
+    /* 
+     * method that counts filled seats at one table
+     * Parameter is the table number
+     * Returns an int value for the number of filled seats at one table
+     */
     private int tableSize(int table) {
         int count = 0;
         //loop that increments the counter variable if the seat at a table is not null/empty
@@ -394,7 +417,11 @@ public class Conference {
         return count;
     }
     
-	//method to count the guests from one company
+	/*
+	 * a method to count the guests from one company currently loaded
+	 * Parameters: the company ID being counted
+	 * Return: the number of guests form that company as an integer value
+	 */
     private int companyCount(int companyId) {
         int count = 0;
         //loops through the guests arrayList to see how many guests match the tested companyID
@@ -407,7 +434,11 @@ public class Conference {
         return count;
     }
     
-    //method that finds the index for a company ID
+    /* 
+     * a method searches for a company ID in the companyID array
+     * Parameters: the company ID to search for
+     * Return: the index of a company if it is found and -1 if not
+     */
     private int companyIndex(int companyId) {
 		//loops through the companyIds to find the index where the searched companyID matches the tested companyID
         for (int i = 0; i < companyIds.size(); i++) {
@@ -419,7 +450,11 @@ public class Conference {
         return -1;
     }
     
-    //returns the company name for a company ID
+    /* 
+     * method that returns if company name that matches a company ID
+     * Parameters: the company ID to look up
+     * Return: the matching company as a String (or a printed message if the company ID is not found
+     */
     private String companyName(int companyId) {
         int index = companyIndex(companyId);
         if (index == -1) {
@@ -428,7 +463,10 @@ public class Conference {
         return companyNames.get(index);
     }
 
-    //method that prints an error and quits the program if necessary
+    /* 
+     * a method that prints an error and quits the program if necessary
+     * Parameter: a String message that shares the error
+     */
     private void quit(String message) {
         System.out.println("Error: " + message);
         System.exit(1);
