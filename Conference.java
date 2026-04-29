@@ -69,20 +69,23 @@ public class Conference {
 			//is less than the max number of companies allowed for this scenario
 		while (scan.hasNextLine() && companyIds.size() < maxCompanies) {
 			String line = scan.nextLine().trim();
-			
-			// Splits the line by commas (the delimiters)
-			String[] companyData = line.split(",");
+			//only process lines that are not blank
+			if (line.length() > 0) {
+				String[] companyData = line.split(",");
 
-			// Stores the data from the split array
-			int companyId = Integer.parseInt(companyData[0].trim());
-			String companyName = companyData[1].trim();
-
-			// Adds the company ID and name to the array lists
-			companyIds.add(companyId);
-			companyNames.add(companyName);
+				//only process lines that have both an ID and a company name
+				if (companyData.length >= 2 && companyData[0].trim().length() > 0 && companyData[1].trim().length() > 0) {
+					//gets company info
+					int companyId = Integer.parseInt(companyData[0].trim());
+					String companyName = companyData[1].trim();
+					//adds company info into storage
+					companyIds.add(companyId);
+					companyNames.add(companyName);
+				}
+			}
 		}
 		scan.close();
-	}
+	}	
 	
 	//loads guests and their info from the confGuests.txt file
 	public void loadGuests() throws FileNotFoundException {
@@ -97,6 +100,11 @@ public class Conference {
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine().trim();
 			
+			//skip lines that are empty
+            if (line.isEmpty()) {
+				continue;
+			}
+				
 			//splits the lines by commas 
 			String[] guestData = line.split(",");
 			
@@ -112,7 +120,6 @@ public class Conference {
 				//calls the canAdd method
 			if (canAdd(companyId)) {
 				guests.add(guest);
-
 				//updates the next available guest ID (increments it by 1)
 				if (guestId >= nextGuestId) {
 					nextGuestId = guestId + 1;

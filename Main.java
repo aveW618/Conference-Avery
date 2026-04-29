@@ -32,9 +32,10 @@ public class Main {
 
 		System.out.print("Enter maximum number of companies: ");
 		int maxCompanies = scan.nextInt();
+		scan.nextLine();
         
         //creates a new Conference object to run in the main method
-		Conference c1 = new Conference();
+		Conference c1 = new Conference(tableCount, seatsPerTable, maxCompanies);
 		
         //calls the loadFiles and seatAll methods on the c1 object
         c1.loadFiles();
@@ -69,13 +70,27 @@ public class Main {
 					//actually stores the company ID inputted by the user
 					int companyId = readInt(scan, "Enter Company ID from above available list: ");
 					//adds a new guest object to the arrayList
-					c1.addGuest(firstName, lastName, companyId);
+					c1.addGuest(first, last, companyId);
 				}
 				
 				//creates a new company and then assigns the geust to that company
 				else if (companyChoice == 2) {
                     int companyId = readInt(scan, "Enter new Company ID: ");
                     String companyName = readText(scan, "Enter new Company name: ");
+                    
+                    //adds the company first, then adds the guest if the company was successfully created
+                    if (c1.addCompany(companyId, companyName)) {
+                        c1.addGuest(first, last, companyId);
+                    }
+                    //informs user if the company could be added
+                    else {
+                        System.out.println("Guest was not added because the new company could not be created.");
+                    }
+                }
+                else {
+                    System.out.println("Please choose a valid company option.");
+                }
+			}
 			
 			//calls the method to print the table rosters
 			else if (choice == 2) {

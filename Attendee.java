@@ -19,7 +19,7 @@ public class Attendee {
 	 * Stores the user ID, first name, last name, and company ID/number
 	 * It also clears the attendee's seat so they start without being seated
 	 */
-	public Attendee(int id, String firstname, String lastname, int companyId) {
+	public Attendee(int id, String firstName, String lastName, int companyId) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
