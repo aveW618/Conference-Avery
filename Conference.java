@@ -1,6 +1,6 @@
 /**
  * @author Avery Wang
- * @since November, 19, 2026
+ * @since November, 19, 2025
  * Program: Inside & Out Conference Project
  * Purpose: Manages the main seating program by loading company and guest data, 
  * assigning attendees to tables/seats, satisfying the background requirements, and printing rosters

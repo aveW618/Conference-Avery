@@ -1,6 +1,6 @@
 /**
  * @author Avery Wang
- * @since November 19, 2026
+ * @since November 19, 2025
  * Inside & Out Conference Project
  * Purpose: Represents the info of one conference attendee including their personal information company ID, and seat assignment
  */

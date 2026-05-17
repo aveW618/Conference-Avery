@@ -1,6 +1,6 @@
 /**
  * @author Avery Wang
- * @since November 19, 2026
+ * @since November 19, 2025
  * Inside & Out Conference Project 
  * Purpose: Runs the user menu for the conference program; the menu allows users to add attendees, print rosters
  * search attendees, and reseat guests
