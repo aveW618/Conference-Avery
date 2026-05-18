@@ -13,6 +13,8 @@ public class Main {
 	/*
 	 * Main method that runs the full conference program
 	 * The method loads the files, seats the guests, and keep showing the menu until the user quits the program
+	 * I had to think a lot about specifically how to word prompts or how to format questions
+	 * such that the user could easily understand and input the accurate, corresponding information
 	 */
     public static void main(String[] args) throws FileNotFoundException{
 		//gets user input
